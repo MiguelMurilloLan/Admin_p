@@ -1,0 +1,110 @@
+<?php
+    include_once('../php/connection.php');
+    include_once('../php/datos.php');
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        header("Location:login.php");
+    }
+    /*
+    $datos=new Datos;
+
+    $permiso=$datos->tienePermiso($_SESSION['id'],'Agregar Evento');
+
+    if(!$permiso['Tiene']){
+        header("Location:index.php");
+    }
+    */
+?>
+<?php
+include_once('../php/connection.php');
+include_once('../php/datos.php');
+
+$datos = new Datos;
+if (isset($_POST['submit'])) {
+    $url=null;
+    $id = trim($_POST['ID']);
+    $nombredato = $_POST['Nombre'];
+    $oldurl = trim($_POST['oldURL']);
+    $lugar = $_POST['Lugar'];
+    $fecha = $_POST['Fecha'];
+    $estado = $_POST['Estado'];
+    $tipo = $_POST['Tipo'];
+    if (($tipo != "Alba") && ($tipo != "Amber")) {
+        throw new Exception("Tipo invalido");
+    }
+    $archivo = null;
+
+    $error = array();
+    $extension = array("jpg", "png", "jpeg");
+    $carpeta = "";
+
+    if ($tipo == "Alba") {
+        $carpeta = "/ProtocoloAlba/";
+    } else if ($tipo == "Amber") {
+        $carpeta = "/AlertaAmber/";
+    }
+
+
+
+    if (!file_exists("../Recursos" . $carpeta)) {
+        mkdir("../Recursos" . $carpeta);
+    }
+    $dir = "/Recursos" . $carpeta;
+
+    print_r($_FILES["files"]);
+
+    try {
+        if(file_exists($_FILES['files']['tmp_name']) || is_uploaded_file($_FILES['files']['tmp_name'])) {
+            $archivo_nombre = $_FILES["files"]["name"];
+            $archivo_tmp = $_FILES["files"]["tmp_name"];
+            $ext = pathinfo($archivo_nombre, PATHINFO_EXTENSION);
+            $nombre = null;
+            if (in_array($ext, $extension)) {
+                if (!file_exists("../Recursos/".$carpeta . $archivo_nombre)) {
+                    $nombre = str_replace(' ', '_', trim($archivo_nombre));
+                    move_uploaded_file($archivo_tmp = $_FILES["files"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . '/PDHEG' . $dir . $nombre);
+                    $archivo=array("directorio" => $dir, "nombre" => $nombre);
+                } else {
+                    $archivo_nombre = basename($archivo_nombre, $ext);
+                    $nuevoArchivoNombre = substr($archivo_nombre, 0, -1) . time() . "." . $ext;
+                    $nombre = str_replace(' ', '_', trim($nuevoArchivoNombre));
+                    move_uploaded_file($archivo_tmp = $_FILES["files"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . '/PDHEG' . $dir . $nombre);
+                    $archivo=array("directorio" => $dir, "nombre" => $nombre);
+                }
+            } else {
+                throw new Exception("Ocurrio un error al subir imagenes");
+            }
+            $url=$archivo['directorio'].$archivo['nombre'];
+        }
+        
+
+        if($url!=null){
+            $datos->modificarAlerta($id,$nombredato,$fecha,$url,$lugar,$estado);
+            if(file_exists($_SERVER['DOCUMENT_ROOT'] . '/PDHEG' . $oldurl)){
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/PDHEG' . $oldurl);
+            }
+        }else{
+            $datos->modificarAlerta($id,$nombredato,$fecha,$oldurl,$lugar,$estado);
+        }
+        print_r("Se modifico la alerta");
+    } catch (Exception $ex) {
+            if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/PDHEG' . $archivo['directorio'] . $archivo['nombre'])) {
+                unlink($_SERVER['DOCUMENT_ROOT'] . '/PDHEG' . $archivo['directorio'] . $archivo['nombre']);
+            }
+
+        throw $ex;
+    }
+
+    header('Location: ./index.php');
+
+    /*print_r($nombre);
+    print_r($anio);
+    print_r($periodo);
+    print_r($categoria);
+    print_r($url);*/
+}
+
+?>
+    
+
+    
