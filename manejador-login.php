@@ -19,13 +19,13 @@ if(isset($_POST['submit'])){
         header("Location: index.php");
     }else{
         $_SESSION['error']="Error en la validacion del usuario";
-        header("Location: login.php");
+        header("Location: login1.php");
         exit();
     }
 
 }else{
     $_SESSION['error']="Vacio";
-    header("Location: login.php");
+    header("Location: login1.php");
     exit();
 }
 ?>

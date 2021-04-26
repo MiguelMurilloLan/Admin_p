@@ -56,7 +56,7 @@ session_start();
        <div class="login-wrap" style="background: #7f8b7e;
     opacity: .9;">
         <img class="mb-4" src="..../Recursos/icono_pag.png" alt="" width="auto" height="57">
-        <h1 class="h3 mb-3 fw-normal">Inicie sesion</h1>
+        <h1 class="h3 mb-3 fw-normal">Iniciar sesion</h1>
         <div class="input-group">
         <label for="inputUsuario" class="visually-hidden">Usuario</label>
         <input type="text" id="inputUsuario" class="form-control" placeholder="Usuario" name="Usuario" required autofocus></div>
