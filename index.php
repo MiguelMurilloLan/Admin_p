@@ -44,9 +44,25 @@
         include_once('../php/connection.php');
         include_once('../php/datos.php');
 
-        $datos = new Datos;
+        session_start(); //to ensure you are using same session
 
-        $listado = $datos->obtenerListadoContenidos();
+    $usuario=trim($_SESSION['id']);
+    $pass=trim($_SESSION['nombre']);
+
+    if($usuario!='' && $pass!=''){
+         $datos = new Datos;
+        $resultado = $datos->obtenerUsuario($usuario);
+
+
+            $listado = $datos->obtenerListadoContenidos();
+
+ 
+    }
+    else{
+        $_SESSION['error']="Error en la validacion del usuario";
+            header("Location: login1.php");
+            exit();
+    }
 
         ?>
   <!-- container section start -->
