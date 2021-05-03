@@ -136,27 +136,32 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
             <ul class="sub">
-              <li><a class="" href="general.html">Elements</a></li>
+              <li><a class="" href="agregar_contenido.php">Agregar</a></li>
               <li><a class="" href="buttons.html">Buttons</a></li>
               <li><a class="" href="grids.html">Grids</a></li>
             </ul>
           </li>
-          
-        
-
+      
           <li class="sub-menu">
             <a href="javascript:;" class="">
-                          <i class="icon_documents_alt"></i>
-                          <span>Quejas y <br>Denuncias</span>
+                          <i class="icon_document_alt"></i>
+                          <span>Alertas</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
             <ul class="sub">
-              <li><a class="" href="profile.html">Todas</a></li>
-              <li><a class="" href="login.html"><span>PDHEG</span></a></li>
-              <li><a class="" href="contact.html"><span>DDHH</span></a></li>
-              <li><a class="" href="blank.html">Blank Page</a></li>
-             
+              <li><a class="" href="AgregarMenu.php">Agregar Elemento</a></li>
+              <li><a class="" href="EditarMenu.php">Editar Elemento</a></li>
             </ul>
+          </li>
+        
+
+          <li class="sub-menu">
+            <a href="QuejasyDenuncias.php" class="">
+                          <i class="icon_documents_alt"></i>
+                          <span>Quejas y <br>Denuncias</span>
+                      
+                      </a>
+          
           </li>
 
         </ul>

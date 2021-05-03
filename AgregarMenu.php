@@ -9,8 +9,8 @@
   <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
   <link rel="shortcut icon" href="img/favicon.png">
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-
-  <title>Agrgar Menu</title>
+  <script language="javascript" src="js/jquery-3.1.1.min.js"></script>
+  <title>Agregar Menu</title>
 
   <!-- Bootstrap CSS -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,19 +24,34 @@
   <link href="css/style.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet" />
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
-  <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-      <script src="js/respond.min.js"></script>
-      <script src="js/lte-ie7.js"></script>
-    <![endif]-->
+ 
+    <script language="javascript">
+		/*	$(document).ready(function(){
+				$("#lista1").change(function () {
+ 
+					//$('#cbx_localidad').find('option').remove().end().append('<option value="whatever"></option>').val('whatever');
+					
+					$("#lista1 option:selected").each(function () {
+						id_menu = $(this).val();
+						$.post("common/categoria.php", { id_menu: id_menu }, function(data){
+							$("#lista2").html(data);
+						});            
+					});
+				})
+			});
+			
+			$(document).ready(function(){
+				$("#lista2").change(function () {
+					$("#lista2 option:selected").each(function () {
+						id_municipio = $(this).val();
+						$.post("includes/getLocalidad.php", { id_municipio: id_municipio }, function(data){
+							$("#cbx_localidad").html(data);
+						});            
+					});
+				})
+			});*/
+		</script>
 
-    <!-- =======================================================
-      Theme Name: NiceAdmin
-      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-      Author: BootstrapMade
-      Author URL: https://bootstrapmade.com
-    ======================================================= -->
 </head>
 
 <body>
@@ -106,9 +121,9 @@ $listado = $datos->obtenerCategoria();
                                     <div class="form-group">
                                       <label class="control-label col-lg-2">Menu Principal</label>
                                       <div class="col-lg-10">
-                                        <select class="form-control">
+                                        <select class="form-control" name="idc[]">
                                           <?php foreach ($listado as $categoria){?>
-                                              <option name="idGrupo" value="<?php $categoria['idGrupo'] ?>"><?php echo $categoria['Descripcion']  ?></option>
+                                              <option  value="<?php echo $categoria['idGrupo']; ?>"><?php echo $categoria['Descripcion'] ; ?></option>
                                           <?php } ?>             
                                           </select>
                                       </div>
@@ -127,18 +142,18 @@ $listado = $datos->obtenerCategoria();
                                       <div class="col-lg-10">
                                         <div class="col-lg-4">
                                             <input type="radio" name="contenido" value="contenido.php">
-                                            <label for="male">Grid</label>
+                                            <label for="">Grid</label>
                                             <img width="170px" src="img/contenido.png">
                                             
                                         </div>
                                         <div class="col-lg-4">
                                             <input type="radio" name="contenido" value="nuevo.php">
-                                            <label for="female">Libre</label>
+                                            <label for="">Libre</label>
                                             <img width="170px" src="img/solo.png">
                                         </div>
                                         <div class="col-lg-2">
                                             <input type="radio" name="contenido" value="Submenu 1">
-                                            <label for="other">Submenu</label>
+                                            <label for="">Submenu</label>
                                          </div>
                                       </div>
                                     </div>
@@ -148,11 +163,11 @@ $listado = $datos->obtenerCategoria();
                                       <div class="col-lg-10">
                                       <div class="btn-row">
                                             <div class="btn-group" data-toggle="buttons">
-                                              <label class="btn btn-default active " >
-                                                   <input type="radio" name="options" id="option1" value="1"> Si
+                                              <label class="btn btn-default  " >
+                                                   <input type="radio" name="act"  value="1"> Si
                                               </label>
                                               <label class="btn btn-default">
-                                                    <input type="radio" name="options" id="option2" value="0"> No
+                                                    <input type="radio" name="act" value="0"> No
                                                </label>
                                               
                                             </div>
@@ -206,7 +221,7 @@ $listado = $datos->obtenerCategoria();
                                       <div class="col-lg-10">
                                         <select class="form-control" id="lista1">
                                           <?php foreach ($listado as $categoria){?>
-                                              <option value="<?php $categoria['idGrupo'] ; ?>"><?php echo $categoria['Descripcion'] ; ?></option>
+                                              <option value="<?php echo $categoria['idGrupo'] ; ?>"><?php echo $categoria['Descripcion'] ; ?></option>
                                           <?php } ?>             
                                           </select>
                                       </div>
@@ -214,8 +229,8 @@ $listado = $datos->obtenerCategoria();
                                      <!-- subCateogry -->
                                      <div class="form-group">
                                       <label class="control-label col-lg-2">Categoría</label>
-                                      <div class="col-lg-10" id="lista2">
-                                        
+                                      <div class="col-lg-10" >
+                                         <select id="lista2" name="idc[]"></select>
                                       </div>
                                     </div>
 
